@@ -1,13 +1,9 @@
-import {
-  Card,
-  CssBaseline,
-  Unstable_Grid2 as Grid,
-  Typography
-} from '@mui/material'
+import { CssBaseline, Unstable_Grid2 as Grid } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import type {} from '@mui/x-date-pickers/themeAugmentation'
 import './App.css'
+import { ExercisesSection } from './components/ExercisesSection/ExercisesSection'
 import { PlannedDaysSection } from './components/PlannedDaysSection/PlannedDaysSection'
 import { UserDatePicker } from './components/UserDatePicker/UserDatePicker'
 import { CalendarProvider } from './store/context'
@@ -30,9 +26,7 @@ export const App = () => {
           </Grid>
           {/* THIRD PART */}
           <Grid xs={12} md={4}>
-            <Card sx={{ height: '100%' }}>
-              <Typography textAlign='center'>Third Part</Typography>
-            </Card>
+            <ExercisesSection />
           </Grid>
         </Grid>
       </CalendarProvider>
