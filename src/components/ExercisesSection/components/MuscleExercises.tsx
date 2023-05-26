@@ -7,7 +7,7 @@ interface MuscleExercisesProps {
   muscle: string
 }
 
-type ExerciseType = {
+interface ExerciseType {
   difficulty: string
   equipment: string
   instructions: string
@@ -20,6 +20,9 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
   const { muscle } = props
   const [exercises, setExercises] = useState<ExerciseType[]>([])
   const [showDetail, setShowDetail] = useState(false)
+  const [instructionData, setInstructionData] = useState<ExerciseType | null>(
+    null
+  )
 
   useEffect(() => {
     getExercises(muscle).then((data) => setExercises(data || []))
@@ -31,6 +34,7 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
+    height: 500,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -38,33 +42,28 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
   }
 
   return (
-    <Stack component='div'>
-      {exercises &&
-        exercises.map((exercise: ExerciseType, index: number) => {
-          return (
-            <>
-              <Modal
-                open={showDetail}
-                onClose={() => {
-                  setShowDetail(false)
-                }}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
-              >
-                <Box sx={style}>
-                  <Typography
-                    id='modal-modal-title'
-                    variant='h6'
-                    component='h2'
-                  >
-                    Text in a modal
-                  </Typography>
-                  <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor
-                    ligula.
-                  </Typography>
-                </Box>
-              </Modal>
+    <>
+      <Modal
+        open={showDetail}
+        onClose={() => {
+          setShowDetail(false)
+        }}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={style} overflow='auto'>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            {instructionData?.name}
+          </Typography>
+          <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+            {instructionData?.instructions}
+          </Typography>
+        </Box>
+      </Modal>
+      <Stack component='div'>
+        {exercises &&
+          exercises.map((exercise: ExerciseType, index: number) => {
+            return (
               <Box
                 key={index}
                 display='flex'
@@ -76,14 +75,19 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
                   <IconButton>
                     <AddBoxOutlined />
                   </IconButton>
-                  <IconButton onClick={() => setShowDetail(true)}>
+                  <IconButton
+                    onClick={() => {
+                      setShowDetail(true)
+                      setInstructionData(exercise)
+                    }}
+                  >
                     <QuestionMark />
                   </IconButton>
                 </Box>
               </Box>
-            </>
-          )
-        })}
-    </Stack>
+            )
+          })}
+      </Stack>
+    </>
   )
 }

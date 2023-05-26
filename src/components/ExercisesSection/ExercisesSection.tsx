@@ -6,7 +6,7 @@ import { MuscleExercises } from './components/MuscleExercises'
 export const ExercisesSection = () => {
   const [showedMuscle, setShowedMuscle] = useState(muscles[0])
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%', overflow: 'auto' }}>
       <Grid container height='100%'>
         <Grid
           xs={4}
