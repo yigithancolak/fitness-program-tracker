@@ -7,12 +7,11 @@ export const ExercisesSection = () => {
   const [showedMuscle, setShowedMuscle] = useState(muscles[0])
   return (
     <Card sx={{ height: '100%' }}>
-      <Typography textAlign='center'>Third Part</Typography>
-      <Grid container>
+      <Grid container height='100%'>
         <Grid
-          md={4}
+          xs={4}
           padding={1}
-          border='1px solid black'
+          borderRight='1px solid gainsboro'
           display='flex'
           flexDirection='column'
         >
@@ -22,7 +21,7 @@ export const ExercisesSection = () => {
               variant='outlined'
               color='warning'
               size='small'
-              sx={{ fontSize: 10 }}
+              sx={{ fontSize: 12 }}
               onClick={() => setShowedMuscle(muscle)}
             >
               {muscle}
@@ -30,7 +29,10 @@ export const ExercisesSection = () => {
           ))}
         </Grid>
 
-        <Grid md={8}>
+        <Grid xs={8} padding={1}>
+          <Typography textAlign='center' textTransform='uppercase'>
+            {showedMuscle}
+          </Typography>
           <MuscleExercises muscle={showedMuscle} />
         </Grid>
       </Grid>
