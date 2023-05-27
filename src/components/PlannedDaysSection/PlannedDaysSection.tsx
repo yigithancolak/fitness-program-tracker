@@ -1,4 +1,5 @@
-import { Card, Typography } from '@mui/material'
+import { DeleteOutline } from '@mui/icons-material'
+import { Card, IconButton, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
@@ -8,6 +9,7 @@ import {
   AccordionSummary
 } from '../../styles/sharedStyles'
 import { PlanType } from '../UserDatePicker/UserDatePicker'
+import { PlannedExercise } from './components/PlannedExercise'
 
 export const PlannedDaysSection = () => {
   const {
@@ -19,22 +21,39 @@ export const PlannedDaysSection = () => {
       <Typography>Selected Days</Typography>
       {plannedDays &&
         plannedDays.map((plan: PlanType, index: number) => (
-          <Accordion
-            key={plan.date}
-            expanded={selectedDay === plan.date}
-            onClick={() =>
-              dispatch({
-                type: ActionTypes.SET_SELECTED_DAY,
-                payload: plan.date
-              })
-            }
-          >
+          <Accordion key={plan.date} expanded={selectedDay === plan.date}>
             <AccordionSummary
-              sx={{ bgcolor: selectedDay === plan.date ? 'green' : null }}
+              onClick={() =>
+                dispatch({
+                  type: ActionTypes.SET_SELECTED_DAY,
+                  payload: plan.date
+                })
+              }
+              sx={{
+                background:
+                  selectedDay === plan.date
+                    ? 'linear-gradient(90deg, rgba(76,214,25,0.333858543417367) 1%, rgba(90,253,29,0.47111344537815125) 50%, rgba(193,252,69,0.1657913165266106) 100%)'
+                    : null
+              }}
             >
-              {plan.date}
+              <Typography display='flex' alignItems='center' width='100%'>
+                {plan.date}
+              </Typography>
+              <IconButton>
+                <DeleteOutline />
+              </IconButton>
             </AccordionSummary>
-            <AccordionDetails>Hey</AccordionDetails>
+            <AccordionDetails>
+              {plan.exercises.map((exercise, index) => (
+                <PlannedExercise
+                  key={index}
+                  exerciseDate={plan.date}
+                  exerciseName={exercise.exerciseName}
+                  repeats={exercise.repeats}
+                  sets={exercise.sets}
+                />
+              ))}
+            </AccordionDetails>
           </Accordion>
         ))}
     </Card>

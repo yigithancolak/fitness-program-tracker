@@ -1,7 +1,9 @@
 import { AddBoxOutlined, QuestionMark } from '@mui/icons-material'
 import { Box, IconButton, Modal, Stack, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getExercises } from '../../../api/apiRequests'
+import { CalendarContext } from '../../../store/context'
+import { ActionTypes } from '../../../store/reducer/actions'
 
 interface MuscleExercisesProps {
   muscle: string
@@ -23,6 +25,7 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
   const [instructionData, setInstructionData] = useState<ExerciseType | null>(
     null
   )
+  const { dispatch } = useContext(CalendarContext)
 
   useEffect(() => {
     getExercises(muscle).then((data) => setExercises(data || []))
@@ -72,7 +75,14 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
               >
                 <Typography>{exercise.name}</Typography>
                 <Box display='flex'>
-                  <IconButton>
+                  <IconButton
+                    onClick={() => {
+                      dispatch({
+                        type: ActionTypes.ADD_TO_PLAN,
+                        payload: exercise.name
+                      })
+                    }}
+                  >
                     <AddBoxOutlined />
                   </IconButton>
                   <IconButton

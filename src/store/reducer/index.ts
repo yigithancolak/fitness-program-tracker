@@ -14,6 +14,24 @@ export const reducer = (state: InitialStateType, action: any) => {
         selectedDay: action.payload
       }
 
+    case ActionTypes.ADD_TO_PLAN: {
+      const newExerciseDetail = {
+        exerciseName: action.payload,
+        sets: '',
+        repeats: ''
+      }
+      const newPlannedDays = [...state.plannedDays].map((day) => {
+        if (day.date === state.selectedDay) {
+          return { ...day, exercises: [...day.exercises, newExerciseDetail] }
+        }
+        return day
+      })
+      return {
+        ...state,
+        plannedDays: newPlannedDays
+      }
+    }
+
     default:
       return state
   }

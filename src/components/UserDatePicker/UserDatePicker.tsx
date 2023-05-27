@@ -9,15 +9,15 @@ import { dateFormat } from '../../utils/constans'
 import { setStorageDays } from '../../utils/localStorage'
 import { CustomLayout } from './layout/CustomLayout'
 
-export type ExercisePlanType = {
-  exercises: string[] | []
+export type ExerciseDetails = {
+  exerciseName: string
   sets: string
   repeats: string
 }
 
 export interface PlanType {
   date: string
-  exercises: ExercisePlanType[] | []
+  exercises: ExerciseDetails[] | []
 }
 
 export const UserDatePicker = () => {
