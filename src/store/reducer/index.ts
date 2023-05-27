@@ -8,6 +8,11 @@ export const reducer = (state: InitialStateType, action: any) => {
         ...state,
         plannedDays: [...state.plannedDays, action.payload]
       }
+    case ActionTypes.SET_SELECTED_DAY:
+      return {
+        ...state,
+        selectedDay: action.payload
+      }
 
     default:
       return state

@@ -9,6 +9,17 @@ import { dateFormat } from '../../utils/constans'
 import { setStorageDays } from '../../utils/localStorage'
 import { CustomLayout } from './layout/CustomLayout'
 
+export type ExercisePlanType = {
+  exercises: string[] | []
+  sets: string
+  repeats: string
+}
+
+export interface PlanType {
+  date: string
+  exercises: ExercisePlanType[] | []
+}
+
 export const UserDatePicker = () => {
   const {
     state: { plannedDays },
@@ -27,18 +38,24 @@ export const UserDatePicker = () => {
         setValue(newValue as any)
       }}
       onAccept={(val: any) => {
+        const newPlan = {
+          date: dayjs(val).format(dateFormat),
+          exercises: []
+        } as PlanType
         dispatch({
           type: ActionTypes.ADD_DAY,
-          payload: dayjs(val).format(dateFormat)
+          payload: newPlan
         })
-        setStorageDays([...plannedDays, dayjs(val).format(dateFormat)])
+        setStorageDays([...plannedDays, newPlan])
       }}
       slots={{
         layout: CustomLayout,
         day: (props) => {
           const isSelected =
             !props.outsideCurrentMonth &&
-            plannedDays.includes(props.day.format(dateFormat))
+            plannedDays.some(
+              (plan) => plan.date === dayjs(props.day).format(dateFormat)
+            )
 
           return (
             <Badge

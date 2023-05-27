@@ -1,13 +1,16 @@
 import { PropsWithChildren, createContext, useReducer } from 'react'
+import { PlanType } from '../../components/UserDatePicker/UserDatePicker'
 import { getStorageDays } from '../../utils/localStorage'
 import { reducer } from '../reducer'
 
 export type InitialStateType = {
-  plannedDays: string[]
+  plannedDays: PlanType[]
+  selectedDay: string
 }
 
 export const initialState: InitialStateType = {
-  plannedDays: getStorageDays()
+  plannedDays: getStorageDays(),
+  selectedDay: ''
 }
 
 export const CalendarContext = createContext<{

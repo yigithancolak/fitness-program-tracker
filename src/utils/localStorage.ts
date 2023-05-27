@@ -1,3 +1,4 @@
+import { PlanType } from '../components/UserDatePicker/UserDatePicker'
 import { STORAGE_HIGHLIGHTED_DAYS } from './constans'
 
 export const getStorageDays = () => {
@@ -5,6 +6,6 @@ export const getStorageDays = () => {
   return storedDays ? JSON.parse(storedDays) : []
 }
 
-export const setStorageDays = (newDays: string[]) => {
+export const setStorageDays = (newDays: PlanType[]) => {
   localStorage.setItem(STORAGE_HIGHLIGHTED_DAYS, JSON.stringify(newDays))
 }
