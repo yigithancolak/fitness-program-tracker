@@ -3,6 +3,7 @@ import { Badge } from '@mui/material'
 import { PickersDay, StaticDatePicker } from '@mui/x-date-pickers'
 import dayjs from 'dayjs'
 import { useContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
 import { dateFormat } from '../../utils/constans'
@@ -15,6 +16,7 @@ export type ExerciseDetails = {
 }
 
 export interface PlanType {
+  id: string
   date: string
   exercises: ExerciseDetails[] | []
 }
@@ -37,13 +39,13 @@ export const UserDatePicker = () => {
         setValue(newValue as any)
       }}
       onAccept={(val: any) => {
-        const newPlan = {
-          date: dayjs(val).format(dateFormat),
-          exercises: []
-        } as PlanType
         dispatch({
           type: ActionTypes.ADD_DAY,
-          payload: newPlan
+          payload: {
+            id: uuidv4(),
+            date: dayjs(val).format(dateFormat),
+            exercises: []
+          }
         })
       }}
       slots={{

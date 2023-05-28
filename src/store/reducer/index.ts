@@ -3,9 +3,19 @@ import { setStorageDays } from '../../utils/localStorage'
 import { InitialStateType } from '../context'
 import { ActionTypes } from './actions'
 
-export const reducer = (state: InitialStateType, action: any) => {
+export type ReducerAction = { type: string; payload: any }
+
+export const reducer = (state: InitialStateType, action: ReducerAction) => {
   switch (action.type) {
     case ActionTypes.ADD_DAY: {
+      const isAddedBefore = [...state.plannedDays].some(
+        (day) => day.date === action.payload.date
+      )
+
+      if (isAddedBefore) {
+        return state
+      }
+
       const newPlannedDays = [...state.plannedDays, action.payload]
       const sortedPlannedDays = sortPlanByDate([...newPlannedDays])
 
@@ -19,7 +29,7 @@ export const reducer = (state: InitialStateType, action: any) => {
 
     case ActionTypes.DELETE_DAY: {
       const newPlannedDays = [...state.plannedDays].filter(
-        (day) => day.date !== action.payload
+        (day) => day.id !== action.payload
       )
       setStorageDays([...newPlannedDays])
       return { ...state, plannedDays: newPlannedDays }
@@ -38,7 +48,7 @@ export const reducer = (state: InitialStateType, action: any) => {
         repeats: ''
       }
       const newPlannedDays = [...state.plannedDays].map((day) => {
-        if (day.date === state.selectedDay) {
+        if (day.id === state.selectedDay) {
           return { ...day, exercises: [...day.exercises, newExerciseDetail] }
         }
         return day

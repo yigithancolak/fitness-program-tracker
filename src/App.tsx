@@ -1,18 +1,22 @@
 import { CssBaseline, Unstable_Grid2 as Grid } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import type {} from '@mui/x-date-pickers/themeAugmentation'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './App.css'
+import { AppToastContainer } from './components/AppToastContainer/AppToastContainer'
 import { ExercisesSection } from './components/ExercisesSection/ExercisesSection'
 import { PlannedDaysSection } from './components/PlannedDaysSection/PlannedDaysSection'
 import { UserDatePicker } from './components/UserDatePicker/UserDatePicker'
 import { CalendarProvider } from './store/context'
 
+const queryClient = new QueryClient()
+
 export const App = () => {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <CssBaseline />
       <CalendarProvider>
+        <AppToastContainer />
         <Grid container>
           {/* DATE PICKER */}
           <Grid xs={12} md={4}>
@@ -30,6 +34,6 @@ export const App = () => {
           </Grid>
         </Grid>
       </CalendarProvider>
-    </>
+    </QueryClientProvider>
   )
 }

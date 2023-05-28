@@ -18,7 +18,7 @@ export const ExercisesSection = () => {
           {muscles.map((muscle, index) => (
             <Button
               key={index}
-              variant='outlined'
+              variant={showedMuscle === muscle ? 'contained' : 'outlined'}
               color='warning'
               size='small'
               sx={{ fontSize: 12 }}
@@ -29,7 +29,14 @@ export const ExercisesSection = () => {
           ))}
         </Grid>
 
-        <Grid xs={8} padding={1}>
+        <Grid
+          xs={8}
+          padding={1}
+          display='flex'
+          flexDirection='column'
+          justifyContent='center'
+          alignItems='center'
+        >
           <Typography textAlign='center' textTransform='uppercase'>
             {showedMuscle}
           </Typography>

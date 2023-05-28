@@ -1,7 +1,6 @@
 import { AddTask } from '@mui/icons-material'
 import {
   Box,
-  Button,
   Unstable_Grid2 as Grid,
   IconButton,
   TextField,
@@ -10,6 +9,7 @@ import {
 import { FormEventHandler, useContext, useState } from 'react'
 import { CalendarContext } from '../../../store/context'
 import { ActionTypes } from '../../../store/reducer/actions'
+import { SetsRepsDetail } from './SetsRepsDetail'
 
 interface PlannedExerciseProps {
   exerciseName: string
@@ -51,6 +51,7 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
         {editMode ? (
           <form onSubmit={handleSubmit}>
             <Box display='flex' alignItems='center'>
+              {/* SETS */}
               <TextField
                 value={setsCount}
                 onChange={(e) => setSetsCount(e.target.value)}
@@ -58,6 +59,7 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
                 label='sets'
                 variant='outlined'
               />
+              {/* REPS */}
               <TextField
                 value={repsCount}
                 onChange={(e) => setRepsCount(e.target.value)}
@@ -71,29 +73,11 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
             </Box>
           </form>
         ) : (
-          <Box
-            display='flex'
-            alignItems='center'
-            justifyContent='space-between'
-          >
-            {sets !== '' && repeats !== '' && (
-              <Typography>
-                {sets}x{repeats}
-              </Typography>
-            )}
-            <Box display='flex' flexDirection='column' justifyContent='center'>
-              <Button
-                variant='text'
-                onClick={() => setEditMode(true)}
-                sx={{ fontSize: 10 }}
-              >
-                {!repeats && !sets ? 'Add' : 'Change'}
-              </Button>
-              <Button variant='text' sx={{ fontSize: 10 }}>
-                Remove
-              </Button>
-            </Box>
-          </Box>
+          <SetsRepsDetail
+            sets={sets}
+            repeats={repeats}
+            setEditMode={setEditMode}
+          />
         )}
       </Grid>
     </Grid>

@@ -19,7 +19,10 @@ export const CalendarContext = createContext<{
 }>({ state: initialState, dispatch: () => null })
 
 export const CalendarProvider = (props: PropsWithChildren) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(
+    reducer as any,
+    initialState as InitialStateType
+  )
 
   return (
     <CalendarContext.Provider value={{ state, dispatch }}>

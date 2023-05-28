@@ -1,9 +1,6 @@
-type Exercise = {
-  date: string
-  exercises: any[] // Replace "any" with the actual type of your exercises if you have one
-}
+import { PlanType } from '../components/UserDatePicker/UserDatePicker'
 
-export const sortPlanByDate = (plan: Exercise[]): Exercise[] => {
+export const sortPlanByDate = (plan: PlanType[]): PlanType[] => {
   return plan.sort((a, b) => {
     const datePartsA = a.date.split('/')
     const dateA = new Date(+datePartsA[2], +datePartsA[1] - 1, +datePartsA[0])

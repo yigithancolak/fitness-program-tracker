@@ -21,17 +21,17 @@ export const PlannedDaysSection = () => {
       <Typography>Selected Days</Typography>
       {plannedDays &&
         plannedDays.map((plan: PlanType, index: number) => (
-          <Accordion key={plan.date} expanded={selectedDay === plan.date}>
+          <Accordion key={index} expanded={selectedDay === plan.id}>
             <AccordionSummary
               onClick={() =>
                 dispatch({
                   type: ActionTypes.SET_SELECTED_DAY,
-                  payload: plan.date
+                  payload: plan.id
                 })
               }
               sx={{
                 background:
-                  selectedDay === plan.date
+                  selectedDay === plan.id
                     ? 'linear-gradient(90deg, rgba(76,214,25,0.333858543417367) 1%, rgba(90,253,29,0.47111344537815125) 50%, rgba(193,252,69,0.1657913165266106) 100%)'
                     : null
               }}
@@ -41,7 +41,7 @@ export const PlannedDaysSection = () => {
               </Typography>
               <IconButton
                 onClick={() =>
-                  dispatch({ type: ActionTypes.DELETE_DAY, payload: plan.date })
+                  dispatch({ type: ActionTypes.DELETE_DAY, payload: plan.id })
                 }
               >
                 <DeleteOutline />
