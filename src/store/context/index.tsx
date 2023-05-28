@@ -10,7 +10,7 @@ export type InitialStateType = {
 
 export const initialState: InitialStateType = {
   plannedDays: getStorageDays(),
-  selectedDay: getStorageDays()[0].date || ''
+  selectedDay: ''
 }
 
 export const CalendarContext = createContext<{

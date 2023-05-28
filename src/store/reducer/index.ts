@@ -32,6 +32,28 @@ export const reducer = (state: InitialStateType, action: any) => {
       }
     }
 
+    case ActionTypes.CHANGE_REPS_SETS: {
+      const { date, sets, reps, exerciseName } = action.payload
+
+      const newExercises = [...state.plannedDays]
+        .find((day) => day.date === date)
+        ?.exercises.map((exercise) => {
+          if (exercise.exerciseName === exerciseName) {
+            return { ...exercise, sets: sets, repeats: reps }
+          }
+          return exercise
+        })
+
+      const newPlannedDays = [...state.plannedDays].map((day) => {
+        if (day.date === date) {
+          return { ...day, exercises: newExercises }
+        }
+        return day
+      })
+
+      return { ...state, plannedDays: newPlannedDays }
+    }
+
     default:
       return state
   }
