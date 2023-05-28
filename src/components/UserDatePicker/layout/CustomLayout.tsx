@@ -1,5 +1,7 @@
+import { Box, Button } from '@mui/material'
 import {
   DateView,
+  PickersActionBarProps,
   PickersLayoutContentWrapper,
   PickersLayoutProps,
   PickersLayoutRoot,
@@ -8,6 +10,35 @@ import {
   usePickerLayout
 } from '@mui/x-date-pickers'
 import { Dayjs } from 'dayjs'
+
+export const ActionList = (props: PickersActionBarProps) => {
+  const { onAccept, onClear, onCancel } = props
+  const actions = [
+    { text: 'Clear', method: onClear },
+    { text: 'Delete', method: onCancel },
+    { text: 'Add', method: onAccept }
+  ]
+  return (
+    <Box
+      display='flex'
+      padding={2}
+      bgcolor='coral'
+      justifyContent='flex-end'
+      gap={1}
+    >
+      {actions.map(({ text, method }) => (
+        <Button
+          key={text}
+          variant='contained'
+          onClick={method}
+          color={text === 'Add' ? 'success' : 'error'}
+        >
+          {text}
+        </Button>
+      ))}
+    </Box>
+  )
+}
 
 export const CustomLayout = (
   props: PickersLayoutProps<Dayjs | null, Dayjs, DateView>
@@ -47,8 +78,8 @@ export const CustomLayout = (
       >
         {tabs}
         {content}
+        {actionBar}
       </PickersLayoutContentWrapper>
-      {actionBar}
     </PickersLayoutRoot>
   )
 }

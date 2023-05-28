@@ -6,8 +6,7 @@ import { useContext, useState } from 'react'
 import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
 import { dateFormat } from '../../utils/constans'
-import { setStorageDays } from '../../utils/localStorage'
-import { CustomLayout } from './layout/CustomLayout'
+import { ActionList, CustomLayout } from './layout/CustomLayout'
 
 export type ExerciseDetails = {
   exerciseName: string
@@ -46,10 +45,10 @@ export const UserDatePicker = () => {
           type: ActionTypes.ADD_DAY,
           payload: newPlan
         })
-        setStorageDays([...plannedDays, newPlan])
       }}
       slots={{
         layout: CustomLayout,
+        actionBar: ActionList,
         day: (props) => {
           const isSelected =
             !props.outsideCurrentMonth &&

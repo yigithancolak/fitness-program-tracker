@@ -39,7 +39,11 @@ export const PlannedDaysSection = () => {
               <Typography display='flex' alignItems='center' width='100%'>
                 {plan.date}
               </Typography>
-              <IconButton>
+              <IconButton
+                onClick={() =>
+                  dispatch({ type: ActionTypes.DELETE_DAY, payload: plan.date })
+                }
+              >
                 <DeleteOutline />
               </IconButton>
             </AccordionSummary>
