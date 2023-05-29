@@ -17,11 +17,17 @@ export const PlannedDaysSection = () => {
     dispatch
   } = useContext(CalendarContext)
   return (
-    <Card sx={{ height: '100%' }}>
-      <Typography>Selected Days</Typography>
+    <Card sx={{ height: 510, overflow: 'auto' }}>
+      <Typography textAlign='center' bgcolor='coral'>
+        Selected Days
+      </Typography>
       {plannedDays &&
         plannedDays.map((plan: PlanType, index: number) => (
-          <Accordion key={index} expanded={selectedDay === plan.id}>
+          <Accordion
+            key={index}
+            expanded={selectedDay === plan.id}
+            sx={{ border: 1, borderColor: 'lightgrey' }}
+          >
             <AccordionSummary
               onClick={() =>
                 dispatch({
@@ -48,15 +54,23 @@ export const PlannedDaysSection = () => {
               </IconButton>
             </AccordionSummary>
             <AccordionDetails>
-              {plan.exercises.map((exercise, index) => (
-                <PlannedExercise
-                  key={index}
-                  exerciseDate={plan.date}
-                  exerciseName={exercise.exerciseName}
-                  repeats={exercise.repeats}
-                  sets={exercise.sets}
-                />
-              ))}
+              {plan.exercises.length > 0 ? (
+                plan.exercises.map((exercise, index) => (
+                  <PlannedExercise
+                    key={index}
+                    exerciseDate={plan.date}
+                    exerciseName={exercise.exerciseName}
+                    repeats={exercise.repeats}
+                    sets={exercise.sets}
+                    exerciseId={exercise.id}
+                    dayId={plan.id}
+                  />
+                ))
+              ) : (
+                <Typography color='GrayText'>
+                  This section is empty please choose exercises
+                </Typography>
+              )}
             </AccordionDetails>
           </Accordion>
         ))}

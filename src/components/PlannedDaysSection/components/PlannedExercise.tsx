@@ -12,6 +12,8 @@ import { ActionTypes } from '../../../store/reducer/actions'
 import { SetsRepsDetail } from './SetsRepsDetail'
 
 interface PlannedExerciseProps {
+  dayId: string
+  exerciseId: string
   exerciseName: string
   exerciseDate: string
   repeats: string
@@ -19,7 +21,7 @@ interface PlannedExerciseProps {
 }
 
 export const PlannedExercise = (props: PlannedExerciseProps) => {
-  const { exerciseName, exerciseDate, repeats, sets } = props
+  const { exerciseName, exerciseDate, repeats, sets, exerciseId, dayId } = props
   const { dispatch } = useContext(CalendarContext)
   const [editMode, setEditMode] = useState(false)
   const [repsCount, setRepsCount] = useState('')
@@ -31,6 +33,7 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
       dispatch({
         type: ActionTypes.CHANGE_REPS_SETS,
         payload: {
+          id: exerciseId,
           date: exerciseDate,
           reps: repsCount,
           sets: setsCount,
@@ -42,7 +45,13 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
   }
 
   return (
-    <Grid container>
+    <Grid
+      container
+      border={1}
+      borderColor='lightgrey'
+      borderRadius={3}
+      paddingX={1}
+    >
       <Grid xs={6} display='flex' alignItems='center'>
         <Typography>{exerciseName}</Typography>
       </Grid>
@@ -74,6 +83,8 @@ export const PlannedExercise = (props: PlannedExerciseProps) => {
           </form>
         ) : (
           <SetsRepsDetail
+            dayId={dayId}
+            exerciseId={exerciseId}
             sets={sets}
             repeats={repeats}
             setEditMode={setEditMode}

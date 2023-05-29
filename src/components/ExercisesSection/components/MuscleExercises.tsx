@@ -8,6 +8,7 @@ import {
 } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { useContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { getExercises } from '../../../api/apiRequests'
 import { CalendarContext } from '../../../store/context'
 import { ActionTypes } from '../../../store/reducer/actions'
@@ -46,7 +47,8 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
 
   const { isFetching, data } = useQuery({
     queryKey: ['muscleExercises', muscle],
-    queryFn: () => getExercises(muscle)
+    queryFn: () => getExercises(muscle),
+    refetchOnWindowFocus: false
   })
 
   const onModalClose = () => setShowDetail(false)
@@ -63,7 +65,7 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
         exerciseInstructions={exerciseData?.instructions}
         exerciseName={exerciseData?.name}
       />
-      <Stack component='div'>
+      <Stack component='div' gap={2}>
         {data.map((exercise: ExerciseType, index: number) => {
           return (
             <Box
@@ -78,7 +80,7 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
                   onClick={() => {
                     dispatch({
                       type: ActionTypes.ADD_TO_PLAN,
-                      payload: exercise.name
+                      payload: { id: uuidv4(), exerciseName: exercise.name }
                     })
                   }}
                 >

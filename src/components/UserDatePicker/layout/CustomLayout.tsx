@@ -14,8 +14,8 @@ import { Dayjs } from 'dayjs'
 export const ActionList = (props: PickersActionBarProps) => {
   const { onAccept, onClear, onCancel } = props
   const actions = [
-    { text: 'Clear', method: onClear },
-    { text: 'Delete', method: onCancel },
+    // { text: 'Clear', method: onClear },
+    // { text: 'Delete', method: onCancel },
     { text: 'Add', method: onAccept }
   ]
   return (

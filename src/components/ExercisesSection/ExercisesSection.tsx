@@ -1,6 +1,7 @@
-import { Button, Card, Unstable_Grid2 as Grid, Typography } from '@mui/material'
+import { Button, Card, Unstable_Grid2 as Grid } from '@mui/material'
 import { useState } from 'react'
 import { muscles } from '../../utils/constans'
+import { buttonTextChanger } from '../../utils/helpers'
 import { MuscleExercises } from './components/MuscleExercises'
 
 export const ExercisesSection = () => {
@@ -14,6 +15,7 @@ export const ExercisesSection = () => {
           borderRight='1px solid gainsboro'
           display='flex'
           flexDirection='column'
+          gap={1}
         >
           {muscles.map((muscle, index) => (
             <Button
@@ -24,7 +26,7 @@ export const ExercisesSection = () => {
               sx={{ fontSize: 12 }}
               onClick={() => setShowedMuscle(muscle)}
             >
-              {muscle}
+              {buttonTextChanger(muscle)}
             </Button>
           ))}
         </Grid>
@@ -37,9 +39,6 @@ export const ExercisesSection = () => {
           justifyContent='center'
           alignItems='center'
         >
-          <Typography textAlign='center' textTransform='uppercase'>
-            {showedMuscle}
-          </Typography>
           <MuscleExercises muscle={showedMuscle} />
         </Grid>
       </Grid>

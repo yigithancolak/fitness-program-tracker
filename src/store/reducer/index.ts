@@ -36,14 +36,23 @@ export const reducer = (state: InitialStateType, action: ReducerAction) => {
     }
 
     case ActionTypes.SET_SELECTED_DAY:
+      if (state.selectedDay === action.payload) {
+        return {
+          ...state,
+          selectedDay: ''
+        }
+      }
+
       return {
         ...state,
         selectedDay: action.payload
       }
 
     case ActionTypes.ADD_TO_PLAN: {
+      const { exerciseName, id } = action.payload
       const newExerciseDetail = {
-        exerciseName: action.payload,
+        id: id,
+        exerciseName: exerciseName,
         sets: '',
         repeats: ''
       }
@@ -62,24 +71,43 @@ export const reducer = (state: InitialStateType, action: ReducerAction) => {
     }
 
     case ActionTypes.CHANGE_REPS_SETS: {
-      const { date, sets, reps, exerciseName } = action.payload
+      const { date, sets, reps, exerciseName, id } = action.payload
 
       const newExercises = [...state.plannedDays]
-        .find((day) => day.date === date)
+        .find((day) => day.id === state.selectedDay)
         ?.exercises.map((exercise) => {
-          if (exercise.exerciseName === exerciseName) {
+          if (exercise.id === id) {
             return { ...exercise, sets: sets, repeats: reps }
           }
           return exercise
         })
 
       const newPlannedDays = [...state.plannedDays].map((day) => {
-        if (day.date === date) {
+        if (day.id === state.selectedDay) {
           return { ...day, exercises: newExercises }
         }
         return day
       })
 
+      return { ...state, plannedDays: newPlannedDays }
+    }
+
+    case ActionTypes.REMOVE_EXERCISE: {
+      const { dayId, exerciseId } = action.payload
+
+      const newPlannedDays = [...state.plannedDays].map((day) => {
+        if (day.id === dayId) {
+          const newExercises = day.exercises.filter(
+            (exercise) => exercise.id !== exerciseId
+          )
+
+          return { ...day, exercises: newExercises }
+        }
+
+        return day
+      })
+
+      setStorageDays(newPlannedDays)
       return { ...state, plannedDays: newPlannedDays }
     }
 

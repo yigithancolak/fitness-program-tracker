@@ -11,3 +11,7 @@ export const sortPlanByDate = (plan: PlanType[]): PlanType[] => {
     return dateA.getTime() - dateB.getTime()
   })
 }
+
+export const buttonTextChanger = (text: string) => {
+  return text.replace('_', ' ')
+}
