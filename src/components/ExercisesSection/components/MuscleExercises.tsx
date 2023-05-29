@@ -1,24 +1,16 @@
-import { AddBoxOutlined, QuestionMark } from '@mui/icons-material'
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  Stack,
-  Typography
-} from '@mui/material'
+import { CircularProgress, Stack } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { useContext, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { getExercises } from '../../../api/apiRequests'
 import { CalendarContext } from '../../../store/context'
-import { ActionTypes } from '../../../store/reducer/actions'
+import { ExerciseBox } from './ExerciseBox'
 import { ExerciseDetailModal } from './ExerciseDetailModal'
 
 interface MuscleExercisesProps {
   muscle: string
 }
 
-interface ExerciseType {
+export interface ExerciseType {
   difficulty: string
   equipment: string
   instructions: string
@@ -68,34 +60,12 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
       <Stack component='div' gap={2}>
         {data.map((exercise: ExerciseType, index: number) => {
           return (
-            <Box
+            <ExerciseBox
               key={index}
-              display='flex'
-              justifyContent='space-between'
-              alignItems='center'
-            >
-              <Typography>{exercise.name}</Typography>
-              <Box display='flex'>
-                <IconButton
-                  onClick={() => {
-                    dispatch({
-                      type: ActionTypes.ADD_TO_PLAN,
-                      payload: { id: uuidv4(), exerciseName: exercise.name }
-                    })
-                  }}
-                >
-                  <AddBoxOutlined />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    setShowDetail(true)
-                    setExerciseData(exercise)
-                  }}
-                >
-                  <QuestionMark />
-                </IconButton>
-              </Box>
-            </Box>
+              exercise={exercise}
+              setShowDetail={setShowDetail}
+              setExerciseData={setExerciseData}
+            />
           )
         })}
       </Stack>
