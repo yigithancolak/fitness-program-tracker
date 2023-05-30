@@ -8,6 +8,7 @@ import {
   AccordionDetails,
   AccordionSummary
 } from '../../styles/sharedStyles'
+import { theme } from '../../styles/theme'
 import { PlanType } from '../UserDatePicker/UserDatePicker'
 import { PlannedExercise } from './components/PlannedExercise'
 
@@ -17,8 +18,8 @@ export const PlannedDaysSection = () => {
     dispatch
   } = useContext(CalendarContext)
   return (
-    <Card sx={{ height: 510, overflow: 'auto' }}>
-      <Typography textAlign='center' bgcolor='coral'>
+    <Card sx={{ height: 524, overflow: 'auto' }}>
+      <Typography textAlign='center' bgcolor={theme.palette.primary.main}>
         Selected Days
       </Typography>
       {plannedDays &&

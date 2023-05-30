@@ -10,6 +10,7 @@ import {
   usePickerLayout
 } from '@mui/x-date-pickers'
 import { Dayjs } from 'dayjs'
+import { theme } from '../../../styles/theme'
 
 export const ActionList = (props: PickersActionBarProps) => {
   const { onAccept, onClear, onCancel } = props
@@ -22,7 +23,7 @@ export const ActionList = (props: PickersActionBarProps) => {
     <Box
       display='flex'
       padding={2}
-      bgcolor='coral'
+      bgcolor={theme.palette.primary.main}
       justifyContent='flex-end'
       gap={1}
     >
@@ -52,19 +53,19 @@ export const CustomLayout = (
       sx={{
         display: 'grid',
         [`.${pickersLayoutClasses.actionBar}`]: {
-          bgcolor: 'coral',
+          bgcolor: theme.palette.primary.main,
           gridRow: 3,
           borderRadius: '0 0 10px 10px'
         },
         [`.${pickersLayoutClasses.toolbar}`]: {
-          bgcolor: 'coral',
+          bgcolor: theme.palette.primary.main,
           gridRow: 1
         },
         [`.${pickersLayoutClasses.contentWrapper}`]: {
           gridRow: 2,
-          bgcolor: 'gainsboro',
+          bgcolor: theme.palette.secondary.light,
           [`.${pickersCalendarHeaderClasses.root}`]: {
-            bgcolor: 'coral',
+            bgcolor: theme.palette.primary.main,
             fontSize: 20,
             padding: 1
           }

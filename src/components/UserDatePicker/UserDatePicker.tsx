@@ -6,6 +6,7 @@ import { useContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
+import { theme } from '../../styles/theme'
 import { dateFormat } from '../../utils/constans'
 import { ActionList, CustomLayout } from './layout/CustomLayout'
 
@@ -68,7 +69,7 @@ export const UserDatePicker = () => {
                   isSelected ? (
                     <CheckCircleOutline
                       sx={{ width: 15, height: 15 }}
-                      htmlColor='green'
+                      htmlColor={theme.palette.success.dark}
                     />
                   ) : null
                 }

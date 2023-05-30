@@ -7,7 +7,7 @@ import { MuscleExercises } from './components/MuscleExercises'
 export const ExercisesSection = () => {
   const [showedMuscle, setShowedMuscle] = useState(muscles[0])
   return (
-    <Card sx={{ height: '100%', overflow: 'auto' }}>
+    <Card sx={{ height: 525, overflow: 'auto' }}>
       <Grid container height='100%'>
         <Grid
           xs={4}
@@ -21,7 +21,7 @@ export const ExercisesSection = () => {
             <Button
               key={index}
               variant={showedMuscle === muscle ? 'contained' : 'outlined'}
-              color='warning'
+              color='primary'
               size='small'
               sx={{ fontSize: 12 }}
               onClick={() => setShowedMuscle(muscle)}
