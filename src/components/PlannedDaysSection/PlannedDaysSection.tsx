@@ -18,8 +18,18 @@ export const PlannedDaysSection = () => {
     dispatch
   } = useContext(CalendarContext)
   return (
-    <Card sx={{ height: 524, overflow: 'auto' }}>
-      <Typography textAlign='center' bgcolor={theme.palette.primary.main}>
+    <Card
+      sx={{
+        height: 524,
+        overflow: 'auto'
+      }}
+    >
+      <Typography
+        textAlign='center'
+        padding={2}
+        bgcolor={theme.palette.primary.main}
+        variant='body1'
+      >
         Selected Days
       </Typography>
       {plannedDays &&

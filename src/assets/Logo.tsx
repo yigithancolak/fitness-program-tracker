@@ -1,8 +1,8 @@
 export const Logo = () => {
   return (
     <svg
-      width='80'
-      height='80'
+      width='60'
+      height='60'
       viewBox='0 0 256 256'
       xmlns='http://www.w3.org/2000/svg'
       preserveAspectRatio='xMidYMid'
@@ -16,8 +16,8 @@ export const Logo = () => {
           r='65.683%'
           id='a'
         >
-          <stop stop-color='#F8953E' offset='0%' />
-          <stop stop-color='#F36E3E' offset='100%' />
+          <stop stopColor='#F8953E' offset='0%' />
+          <stop stopColor='#F36E3E' offset='100%' />
         </radialGradient>
       </defs>
       <path

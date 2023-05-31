@@ -7,12 +7,13 @@ export const theme = createTheme({
     fontFamily: 'Press Start 2P',
     h1: {
       fontFamily: 'Roboto, Sans-serif',
-      fontSize: '2.5rem'
+      fontSize: '2rem',
+      fontWeight: '600'
     },
 
     body1: {
       fontSize: '1rem',
-      fontWeight: '400',
+      fontWeight: '600',
       lineHeight: '1.6'
     },
     body2: {

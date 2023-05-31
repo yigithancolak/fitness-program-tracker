@@ -7,13 +7,14 @@ export const Header = () => {
     <Stack
       display='flex'
       alignItems='center'
+      justifyContent='center'
       flexDirection='row'
       bgcolor={theme.palette.secondary.light}
       marginBottom={2}
+      paddingY={1}
     >
       <Logo />
       <Typography
-        marginLeft={60}
         textAlign='center'
         color={theme.palette.primary.main}
         variant='h1'

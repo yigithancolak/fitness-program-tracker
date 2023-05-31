@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './App.css'
 import { AppToastContainer } from './components/AppToastContainer/AppToastContainer'
 import { ExercisesSection } from './components/ExercisesSection/ExercisesSection'
+import { Footer } from './components/Footer/Footer'
 import { Header } from './components/Header/Header'
 import { PlannedDaysSection } from './components/PlannedDaysSection/PlannedDaysSection'
 import { UserDatePicker } from './components/UserDatePicker/UserDatePicker'
@@ -23,13 +24,11 @@ export const App = () => {
       <QueryClientProvider client={queryClient}>
         <CssBaseline />
         <CalendarProvider>
-          <AppToastContainer />
-
           <Grid container>
+            <AppToastContainer />
             {/* LOGO */}
-            <Header />
             <Grid xs={12} md={12}>
-              {/* logo will be here */}
+              <Header />
             </Grid>
             {/* DATE PICKER */}
             <Grid xs={12} md={4}>
@@ -44,6 +43,10 @@ export const App = () => {
             {/* THIRD PART */}
             <Grid xs={12} md={4}>
               <ExercisesSection />
+            </Grid>
+
+            <Grid xs={12}>
+              <Footer />
             </Grid>
           </Grid>
         </CalendarProvider>

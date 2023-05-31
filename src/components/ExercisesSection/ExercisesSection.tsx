@@ -1,5 +1,6 @@
 import { Button, Card, Unstable_Grid2 as Grid } from '@mui/material'
 import { useState } from 'react'
+import { theme } from '../../styles/theme'
 import { muscles } from '../../utils/constans'
 import { buttonTextChanger } from '../../utils/helpers'
 import { MuscleExercises } from './components/MuscleExercises'
@@ -12,7 +13,7 @@ export const ExercisesSection = () => {
         <Grid
           xs={4}
           padding={1}
-          borderRight='1px solid gainsboro'
+          borderRight={`1px solid ${theme.palette.secondary.main}`}
           display='flex'
           flexDirection='column'
           gap={1}
