@@ -32,7 +32,7 @@ export const PlannedDaysSection = () => {
   return (
     <Card
       sx={{
-        height: 524,
+        maxHeight: 524,
         overflow: 'auto'
       }}
     >
