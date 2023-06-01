@@ -1,7 +1,8 @@
-import { PropsWithChildren, createContext, useReducer } from 'react'
+import { Dispatch, PropsWithChildren, createContext, useReducer } from 'react'
 import { PlanType } from '../../components/UserDatePicker/UserDatePicker'
 import { getStorageDays } from '../../utils/localStorage'
 import { reducer } from '../reducer'
+import { ActionTypes } from '../reducer/actions'
 
 export type InitialStateType = {
   plannedDays: PlanType[]
@@ -15,7 +16,7 @@ export const initialState: InitialStateType = {
 
 export const CalendarContext = createContext<{
   state: InitialStateType
-  dispatch: any
+  dispatch: Dispatch<{ type: ActionTypes; payload: any }>
 }>({ state: initialState, dispatch: () => null })
 
 export const CalendarProvider = (props: PropsWithChildren) => {
