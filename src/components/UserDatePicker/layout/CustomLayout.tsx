@@ -13,7 +13,7 @@ import { Dayjs } from 'dayjs'
 import { theme } from '../../../styles/theme'
 
 export const ActionList = (props: PickersActionBarProps) => {
-  const { onAccept, onClear, onCancel } = props
+  const { onAccept } = props
   const actions = [
     // { text: 'Clear', method: onClear },
     // { text: 'Delete', method: onCancel },
@@ -39,8 +39,7 @@ export const ActionList = (props: PickersActionBarProps) => {
 export const CustomLayout = (
   props: PickersLayoutProps<Dayjs | null, Dayjs, DateView>
 ) => {
-  const { toolbar, tabs, content, actionBar, shortcuts } =
-    usePickerLayout(props)
+  const { toolbar, tabs, content, actionBar } = usePickerLayout(props)
 
   return (
     <PickersLayoutRoot

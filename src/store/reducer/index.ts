@@ -71,7 +71,7 @@ export const reducer = (state: InitialStateType, action: ReducerAction) => {
     }
 
     case ActionTypes.CHANGE_REPS_SETS: {
-      const { date, sets, reps, exerciseName, id } = action.payload
+      const { sets, reps, id } = action.payload
 
       const newExercises = [...state.plannedDays]
         .find((day) => day.id === state.selectedDay)
