@@ -1,4 +1,4 @@
-import { green, grey, orange, red } from '@mui/material/colors'
+import { green, grey, lightGreen, orange, red } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 export const theme = createTheme({
@@ -17,7 +17,7 @@ export const theme = createTheme({
       lineHeight: '1.6'
     },
     body2: {
-      fontSize: '0.8rem',
+      fontSize: '1rem',
       fontWeight: '400',
       lineHeight: '1.2'
     },
@@ -47,9 +47,9 @@ export const theme = createTheme({
       main: '#FFA500'
     },
     success: {
-      light: green[300],
+      light: lightGreen.A400,
       main: green[400],
-      dark: green[700]
+      dark: green[500]
     }
   }
 })

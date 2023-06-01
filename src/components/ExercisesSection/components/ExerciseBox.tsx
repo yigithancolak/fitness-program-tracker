@@ -20,6 +20,23 @@ export const ExerciseBox = (props: ExerciseBoxProps) => {
     dispatch,
     state: { selectedDay }
   } = useContext(CalendarContext)
+
+  const handleAddPlan = () => {
+    if (selectedDay === '') {
+      toast.error('Please choose a day before you add an exercise')
+    }
+
+    dispatch({
+      type: ActionTypes.ADD_TO_PLAN,
+      payload: { id: uuidv4(), exerciseName: exercise.name }
+    })
+  }
+
+  const handleShowDetail = () => {
+    setShowDetail(true)
+    setExerciseData(exercise)
+  }
+
   return (
     <Box
       display='flex'
@@ -33,26 +50,10 @@ export const ExerciseBox = (props: ExerciseBoxProps) => {
     >
       <Typography>{exercise.name}</Typography>
       <Box display='flex'>
-        <IconButton
-          onClick={() => {
-            if (selectedDay === '') {
-              toast.error('Please choose a day before you add an exercise')
-            }
-
-            dispatch({
-              type: ActionTypes.ADD_TO_PLAN,
-              payload: { id: uuidv4(), exerciseName: exercise.name }
-            })
-          }}
-        >
+        <IconButton onClick={() => handleAddPlan()}>
           <AddBoxOutlined htmlColor={theme.palette.primary.main} />
         </IconButton>
-        <IconButton
-          onClick={() => {
-            setShowDetail(true)
-            setExerciseData(exercise)
-          }}
-        >
+        <IconButton onClick={() => handleShowDetail()}>
           <QuestionMark htmlColor={theme.palette.primary.main} />
         </IconButton>
       </Box>

@@ -3,10 +3,8 @@ import {
   Unstable_Grid2 as Grid,
   ThemeProvider
 } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './App.css'
 import { AppToastContainer } from './components/AppToastContainer/AppToastContainer'
 import { ExercisesSection } from './components/ExercisesSection/ExercisesSection'
 import { Footer } from './components/Footer/Footer'
@@ -27,20 +25,18 @@ export const App = () => {
           <Grid container>
             <AppToastContainer />
             {/* LOGO */}
-            <Grid xs={12} md={12}>
+            <Grid xs={12}>
               <Header />
             </Grid>
             {/* DATE PICKER */}
             <Grid xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <UserDatePicker />
-              </LocalizationProvider>
+              <UserDatePicker />
             </Grid>
             {/* PLANNED DAYS SECTION */}
             <Grid xs={12} md={4}>
               <PlannedDaysSection />
             </Grid>
-            {/* THIRD PART */}
+            {/* EXERCISES SECTION*/}
             <Grid xs={12} md={4}>
               <ExercisesSection />
             </Grid>

@@ -1,8 +1,7 @@
 import { CircularProgress, Stack } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { getExercises } from '../../../api/apiRequests'
-import { CalendarContext } from '../../../store/context'
 import { ExerciseBox } from './ExerciseBox'
 import { ExerciseDetailModal } from './ExerciseDetailModal'
 
@@ -21,10 +20,8 @@ export interface ExerciseType {
 
 export const MuscleExercises = (props: MuscleExercisesProps) => {
   const { muscle } = props
-  const [exercises, setExercises] = useState<ExerciseType[]>([])
   const [showDetail, setShowDetail] = useState(false)
   const [exerciseData, setExerciseData] = useState<ExerciseType | null>(null)
-  const { dispatch } = useContext(CalendarContext)
 
   // useEffect(() => {
 
@@ -43,19 +40,16 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
     refetchOnWindowFocus: false
   })
 
-  const onModalClose = () => setShowDetail(false)
-
   if (isFetching) {
-    return <CircularProgress thickness={10} color='warning' />
+    return <CircularProgress thickness={10} color='primary' />
   }
 
   return (
     <>
       <ExerciseDetailModal
         showDetail={showDetail}
-        onModalClose={onModalClose}
-        exerciseInstructions={exerciseData?.instructions}
-        exerciseName={exerciseData?.name}
+        setShowDetail={setShowDetail}
+        exerciseData={exerciseData}
       />
       <Stack component='div' gap={2}>
         {data.map((exercise: ExerciseType, index: number) => {

@@ -17,6 +17,18 @@ export const PlannedDaysSection = () => {
     state: { plannedDays, selectedDay },
     dispatch
   } = useContext(CalendarContext)
+
+  const handleSelectedDay = (planId: string) => {
+    dispatch({
+      type: ActionTypes.SET_SELECTED_DAY,
+      payload: planId
+    })
+  }
+
+  const handleDeleteDay = (planId: string) => {
+    dispatch({ type: ActionTypes.DELETE_DAY, payload: planId })
+  }
+
   return (
     <Card
       sx={{
@@ -40,28 +52,22 @@ export const PlannedDaysSection = () => {
             sx={{ border: 1, borderColor: 'lightgrey' }}
           >
             <AccordionSummary
-              onClick={() =>
-                dispatch({
-                  type: ActionTypes.SET_SELECTED_DAY,
-                  payload: plan.id
-                })
-              }
+              onClick={() => handleSelectedDay(plan.id)}
               sx={{
                 background:
-                  selectedDay === plan.id
-                    ? 'linear-gradient(90deg, rgba(76,214,25,0.333858543417367) 1%, rgba(90,253,29,0.47111344537815125) 50%, rgba(193,252,69,0.1657913165266106) 100%)'
-                    : null
+                  selectedDay === plan.id ? theme.palette.success.light : null
               }}
             >
               <Typography display='flex' alignItems='center' width='100%'>
                 {plan.date}
               </Typography>
               <IconButton
-                onClick={() =>
-                  dispatch({ type: ActionTypes.DELETE_DAY, payload: plan.id })
-                }
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleDeleteDay(plan.id)
+                }}
               >
-                <DeleteOutline />
+                <DeleteOutline htmlColor={theme.palette.primary.dark} />
               </IconButton>
             </AccordionSummary>
             <AccordionDetails>

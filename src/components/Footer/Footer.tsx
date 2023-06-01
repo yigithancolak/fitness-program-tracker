@@ -13,7 +13,6 @@ export const Footer = () => {
       <Typography variant='body1' textAlign='center'>
         &copy; {new Date().getFullYear()}
         <Typography color={theme.palette.secondary.light} component='span'>
-          {' '}
           S Fitness Tracker
         </Typography>{' '}
         All rights reserved

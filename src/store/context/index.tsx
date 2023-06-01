@@ -25,7 +25,7 @@ export const CalendarProvider = (props: PropsWithChildren) => {
   )
 
   return (
-    <CalendarContext.Provider value={{ state, dispatch }}>
+    <CalendarContext.Provider value={{ state, dispatch } as any}>
       {props.children}
     </CalendarContext.Provider>
   )

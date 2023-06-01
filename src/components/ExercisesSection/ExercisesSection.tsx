@@ -2,7 +2,7 @@ import { Button, Card, Unstable_Grid2 as Grid } from '@mui/material'
 import { useState } from 'react'
 import { theme } from '../../styles/theme'
 import { muscles } from '../../utils/constans'
-import { buttonTextChanger } from '../../utils/helpers'
+import { textChanger } from '../../utils/helpers'
 import { MuscleExercises } from './components/MuscleExercises'
 
 export const ExercisesSection = () => {
@@ -27,7 +27,7 @@ export const ExercisesSection = () => {
               sx={{ fontSize: 12 }}
               onClick={() => setShowedMuscle(muscle)}
             >
-              {buttonTextChanger(muscle)}
+              {textChanger(muscle)}
             </Button>
           ))}
         </Grid>

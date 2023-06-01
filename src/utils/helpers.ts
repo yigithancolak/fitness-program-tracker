@@ -1,4 +1,6 @@
-import { PlanType } from '../components/UserDatePicker/UserDatePicker'
+import dayjs from 'dayjs'
+import { DateType, PlanType } from '../components/UserDatePicker/UserDatePicker'
+import { dateFormat } from './constans'
 
 export const sortPlanByDate = (plan: PlanType[]): PlanType[] => {
   return plan.sort((a, b) => {
@@ -12,6 +14,16 @@ export const sortPlanByDate = (plan: PlanType[]): PlanType[] => {
   })
 }
 
-export const buttonTextChanger = (text: string) => {
-  return text.replace('_', ' ')
+export const textChanger = (text: string | undefined) => {
+  if (text) {
+    return text.replace('_', ' ')
+  }
+}
+
+export const isDayAddedBefore = (
+  plannedDays: PlanType[],
+  newDate: DateType
+) => {
+  const addedDate = dayjs(newDate).format(dateFormat)
+  return plannedDays.some((plan) => plan.date === addedDate)
 }

@@ -28,12 +28,7 @@ export const ActionList = (props: PickersActionBarProps) => {
       gap={1}
     >
       {actions.map(({ text, method }) => (
-        <Button
-          key={text}
-          variant='contained'
-          onClick={method}
-          color={text === 'Add' ? 'success' : 'error'}
-        >
+        <Button key={text} variant='contained' onClick={method} color='success'>
           {text}
         </Button>
       ))}
