@@ -3,19 +3,51 @@ import { setStorageDays } from '../../utils/localStorage'
 import { InitialStateType } from '../context'
 import { ActionTypes } from './actions'
 
-export type ReducerAction = { type: string; payload: any }
+type ActionMap<M extends { [index: string]: any }> = {
+  [Key in keyof M]: M[Key] extends undefined
+    ? {
+        type: Key
+      }
+    : {
+        type: Key
+        payload: M[Key]
+      }
+}
 
-export const reducer = (state: InitialStateType, action: ReducerAction) => {
+type ReducerPayload = {
+  [ActionTypes.ADD_DAY]: {
+    date: string
+    id: string
+    exercises: []
+  }
+  [ActionTypes.DELETE_DAY]: string
+  [ActionTypes.SET_SELECTED_DAY]: string
+  [ActionTypes.ADD_TO_PLAN]: {
+    exerciseName: string
+    id: string
+  }
+  [ActionTypes.CHANGE_REPS_SETS]: {
+    sets: string
+    reps: string
+    id: string
+    date: string
+    exerciseName: string
+  }
+  [ActionTypes.REMOVE_EXERCISE]: {
+    dayId: string
+    exerciseId: string
+  }
+}
+
+export type ReducerActions =
+  ActionMap<ReducerPayload>[keyof ActionMap<ReducerPayload>]
+
+export const reducer = (
+  state: InitialStateType,
+  action: ReducerActions
+): InitialStateType => {
   switch (action.type) {
     case ActionTypes.ADD_DAY: {
-      const isAddedBefore = [...state.plannedDays].some(
-        (day) => day.date === action.payload.date
-      )
-
-      if (isAddedBefore) {
-        return state
-      }
-
       const newPlannedDays = [...state.plannedDays, action.payload]
       const sortedPlannedDays = sortPlanByDate([...newPlannedDays])
 
@@ -84,7 +116,7 @@ export const reducer = (state: InitialStateType, action: ReducerAction) => {
 
       const newPlannedDays = [...state.plannedDays].map((day) => {
         if (day.id === state.selectedDay) {
-          return { ...day, exercises: newExercises }
+          return { ...day, exercises: newExercises || [] }
         }
         return day
       })

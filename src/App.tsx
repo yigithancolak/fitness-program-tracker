@@ -29,15 +29,17 @@ export const App = () => {
               <Header />
             </Grid>
             {/* DATE PICKER */}
-            <Grid xs={12} md={4}>
+
+            <Grid xs={12} display='flex' justifyContent='center' paddingY={2}>
               <UserDatePicker />
             </Grid>
+
             {/* PLANNED DAYS SECTION */}
-            <Grid xs={12} md={4}>
+            <Grid xs={12} md={6}>
               <PlannedDaysSection />
             </Grid>
             {/* EXERCISES SECTION*/}
-            <Grid xs={12} md={4}>
+            <Grid xs={12} md={6}>
               <ExercisesSection />
             </Grid>
 

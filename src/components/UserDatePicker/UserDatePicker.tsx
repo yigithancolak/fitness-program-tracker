@@ -1,9 +1,9 @@
 import { CheckCircleOutline } from '@mui/icons-material'
-import { Badge, Card } from '@mui/material'
+import { Badge, Button } from '@mui/material'
 import {
+  DatePicker,
   LocalizationProvider,
-  PickersDay,
-  StaticDatePicker
+  PickersDay
 } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs, { Dayjs } from 'dayjs'
@@ -14,8 +14,6 @@ import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
 import { theme } from '../../styles/theme'
 import { dateFormat } from '../../utils/constans'
-import { isDayAddedBefore } from '../../utils/helpers'
-import { ActionList, CustomLayout } from './layout/CustomLayout'
 
 export type ExerciseDetails = {
   id: string
@@ -27,21 +25,25 @@ export type ExerciseDetails = {
 export interface PlanType {
   id: string
   date: string
-  exercises: ExerciseDetails[] | []
+  exercises: ExerciseDetails[]
 }
-
-export type DateType = Date | null | Dayjs
 
 export const UserDatePicker = () => {
   const {
     state: { plannedDays },
     dispatch
   } = useContext(CalendarContext)
-  const [value, setValue] = useState<DateType>(new Date())
 
-  const handleAddDay = (val: DateType) => {
-    if (isDayAddedBefore(plannedDays, val)) {
-      toast.error('Day has added before')
+  const [selection, setSelection] = useState(dayjs(new Date()))
+
+  const handleAddDay = (day: Dayjs) => {
+    // if (isDayAddedBefore(plannedDays, day)) {
+    //   toast.error('Day has added before')
+    //   return
+    // }
+
+    if (!dayjs(day).isValid()) {
+      toast.error('Choose a day from date picker')
       return
     }
 
@@ -49,27 +51,25 @@ export const UserDatePicker = () => {
       type: ActionTypes.ADD_DAY,
       payload: {
         id: uuidv4(),
-        date: dayjs(val).format(dateFormat),
+        date: dayjs(day).format(dateFormat),
         exercises: []
       }
     })
   }
 
   return (
-    <Card>
+    <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StaticDatePicker
+        <DatePicker
           openTo='day'
-          defaultValue={dayjs(value)}
+          value={selection}
           disablePast
-          orientation='portrait'
-          onChange={(newValue: DateType) => {
-            setValue(newValue)
+          onChange={(value) => {
+            if (value) setSelection(value)
           }}
-          onAccept={(val: DateType) => handleAddDay(val)}
           slots={{
-            layout: CustomLayout,
-            actionBar: ActionList,
+            // layout: CustomLayout,
+            // actionBar: ActionList,
             day: (props) => {
               const isSelected =
                 !props.outsideCurrentMonth &&
@@ -82,12 +82,12 @@ export const UserDatePicker = () => {
                   key={props.day.toString()}
                   overlap='circular'
                   badgeContent={
-                    isSelected ? (
+                    isSelected && (
                       <CheckCircleOutline
                         sx={{ width: 15, height: 15 }}
                         htmlColor={theme.palette.success.dark}
                       />
-                    ) : null
+                    )
                   }
                 >
                   <PickersDay {...props} />
@@ -97,6 +97,13 @@ export const UserDatePicker = () => {
           }}
         />
       </LocalizationProvider>
-    </Card>
+      <Button
+        variant='contained'
+        sx={{ height: '100%' }}
+        onClick={() => handleAddDay(selection)}
+      >
+        Select
+      </Button>
+    </>
   )
 }

@@ -1,5 +1,5 @@
 export const STORAGE_HIGHLIGHTED_DAYS = 'highlightedDays'
-export const dateFormat = 'DD/MM/YYYY'
+export const dateFormat = 'MMMM DD YYYY'
 export const muscles = [
   'abdominals',
   'abductors',

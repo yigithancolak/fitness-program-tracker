@@ -45,8 +45,8 @@ export const ExerciseBox = (props: ExerciseBoxProps) => {
       border={2}
       paddingX={1}
       borderRadius={3}
+      width={250}
       borderColor={theme.palette.primary.main}
-      bgcolor={theme.palette.background.default}
     >
       <Typography>{exercise.name}</Typography>
       <Box display='flex'>

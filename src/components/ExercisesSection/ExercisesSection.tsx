@@ -1,4 +1,4 @@
-import { Button, Card, Unstable_Grid2 as Grid } from '@mui/material'
+import { Button, Unstable_Grid2 as Grid } from '@mui/material'
 import { useState } from 'react'
 import { theme } from '../../styles/theme'
 import { muscles } from '../../utils/constans'
@@ -8,41 +8,40 @@ import { MuscleExercises } from './components/MuscleExercises'
 export const ExercisesSection = () => {
   const [showedMuscle, setShowedMuscle] = useState(muscles[0])
   return (
-    <Card sx={{ height: 525, overflow: 'auto' }}>
-      <Grid container height='100%'>
-        <Grid
-          xs={4}
-          padding={1}
-          borderRight={`1px solid ${theme.palette.secondary.main}`}
-          display='flex'
-          flexDirection='column'
-          gap={1}
-        >
-          {muscles.map((muscle, index) => (
-            <Button
-              key={index}
-              variant={showedMuscle === muscle ? 'contained' : 'outlined'}
-              color='primary'
-              size='small'
-              sx={{ fontSize: 12 }}
-              onClick={() => setShowedMuscle(muscle)}
-            >
-              {textChanger(muscle)}
-            </Button>
-          ))}
-        </Grid>
-
-        <Grid
-          xs={8}
-          padding={1}
-          display='flex'
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <MuscleExercises muscle={showedMuscle} />
-        </Grid>
+    <Grid container overflow='auto'>
+      <Grid
+        xs={12}
+        borderRight={`1px solid ${theme.palette.secondary.main}`}
+        display='flex'
+        gap={1}
+        padding={2}
+        overflow='auto'
+      >
+        {muscles.map((muscle, index) => (
+          <Button
+            key={index}
+            variant={showedMuscle === muscle ? 'contained' : 'outlined'}
+            color='primary'
+            sx={{ fontSize: 12, minWidth: 100 }}
+            onClick={() => setShowedMuscle(muscle)}
+            disableRipple
+          >
+            {textChanger(muscle)}
+          </Button>
+        ))}
       </Grid>
-    </Card>
+
+      <Grid
+        xs={12}
+        padding={1}
+        display='flex'
+        flexWrap='wrap'
+        justifyContent='center'
+        alignItems='center'
+        gap={2}
+      >
+        <MuscleExercises muscle={showedMuscle} />
+      </Grid>
+    </Grid>
   )
 }

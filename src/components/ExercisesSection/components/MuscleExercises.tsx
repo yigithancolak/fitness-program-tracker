@@ -1,4 +1,4 @@
-import { CircularProgress, Stack } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { getExercises } from '../../../api/apiRequests'
@@ -51,18 +51,17 @@ export const MuscleExercises = (props: MuscleExercisesProps) => {
         setShowDetail={setShowDetail}
         exerciseData={exerciseData}
       />
-      <Stack component='div' gap={2}>
-        {data.map((exercise: ExerciseType, index: number) => {
-          return (
-            <ExerciseBox
-              key={index}
-              exercise={exercise}
-              setShowDetail={setShowDetail}
-              setExerciseData={setExerciseData}
-            />
-          )
-        })}
-      </Stack>
+
+      {data.map((exercise: ExerciseType, index: number) => {
+        return (
+          <ExerciseBox
+            key={index}
+            exercise={exercise}
+            setShowDetail={setShowDetail}
+            setExerciseData={setExerciseData}
+          />
+        )
+      })}
     </>
   )
 }

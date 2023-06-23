@@ -1,4 +1,4 @@
-import { green, grey, lightGreen, orange, red } from '@mui/material/colors'
+import { grey, orange, red } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 export const theme = createTheme({
@@ -14,12 +14,14 @@ export const theme = createTheme({
     body1: {
       fontSize: '1rem',
       fontWeight: '600',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
+      color: '#434343'
     },
     body2: {
       fontSize: '1rem',
       fontWeight: '400',
-      lineHeight: '1.2'
+      lineHeight: '1.2',
+      color: '#434343'
     },
     h6: {
       fontSize: '0.9rem',
@@ -31,7 +33,7 @@ export const theme = createTheme({
     background: {
       default: '#F5F5F5'
     },
-    text: { primary: '#333333' },
+    text: { primary: '#4F4F4F' },
     primary: {
       main: orange[500]
     },
@@ -47,9 +49,18 @@ export const theme = createTheme({
       main: '#FFA500'
     },
     success: {
-      light: lightGreen.A400,
-      main: green[400],
-      dark: green[500]
+      main: '#3AF100'
+    }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+          fontWeight: '400',
+          color: '#434343'
+        }
+      }
     }
   }
 })

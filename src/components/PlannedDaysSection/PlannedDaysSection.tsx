@@ -1,5 +1,5 @@
 import { DeleteOutline } from '@mui/icons-material'
-import { Card, IconButton, Typography } from '@mui/material'
+import { Unstable_Grid2 as Grid, IconButton, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { CalendarContext } from '../../store/context'
 import { ActionTypes } from '../../store/reducer/actions'
@@ -30,67 +30,67 @@ export const PlannedDaysSection = () => {
   }
 
   return (
-    <Card
-      sx={{
-        maxHeight: 524,
-        overflow: 'auto'
-      }}
-    >
-      <Typography
-        textAlign='center'
-        padding={2}
-        bgcolor={theme.palette.primary.main}
-        variant='body1'
-      >
-        Selected Days
-      </Typography>
-      {plannedDays &&
-        plannedDays.map((plan: PlanType, index: number) => (
-          <Accordion
-            key={index}
-            expanded={selectedDay === plan.id}
-            sx={{ border: 1, borderColor: 'lightgrey' }}
-          >
-            <AccordionSummary
-              onClick={() => handleSelectedDay(plan.id)}
-              sx={{
-                background:
-                  selectedDay === plan.id ? theme.palette.success.light : null
-              }}
+    <Grid container overflow='auto' maxHeight={520} paddingY={2}>
+      <Grid xs={12}>
+        <Typography
+          textAlign='center'
+          padding={2}
+          bgcolor={theme.palette.primary.main}
+          variant='body1'
+        >
+          Selected Days
+        </Typography>
+      </Grid>
+
+      <Grid xs={12}>
+        {plannedDays &&
+          plannedDays.map((plan: PlanType, index: number) => (
+            <Accordion
+              key={index}
+              expanded={selectedDay === plan.id}
+              sx={{ border: 1, borderColor: 'lightgrey' }}
             >
-              <Typography display='flex' alignItems='center' width='100%'>
-                {plan.date}
-              </Typography>
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleDeleteDay(plan.id)
+              <AccordionSummary
+                onClick={() => handleSelectedDay(plan.id)}
+                sx={{
+                  background:
+                    selectedDay === plan.id ? theme.palette.success.main : null
                 }}
               >
-                <DeleteOutline htmlColor={theme.palette.primary.dark} />
-              </IconButton>
-            </AccordionSummary>
-            <AccordionDetails>
-              {plan.exercises.length > 0 ? (
-                plan.exercises.map((exercise, index) => (
-                  <PlannedExercise
-                    key={index}
-                    exerciseDate={plan.date}
-                    exerciseName={exercise.exerciseName}
-                    repeats={exercise.repeats}
-                    sets={exercise.sets}
-                    exerciseId={exercise.id}
-                    dayId={plan.id}
-                  />
-                ))
-              ) : (
-                <Typography color='GrayText'>
-                  This section is empty please choose exercises
+                <Typography display='flex' alignItems='center' width='100%'>
+                  {plan.date}
                 </Typography>
-              )}
-            </AccordionDetails>
-          </Accordion>
-        ))}
-    </Card>
+                <IconButton
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleDeleteDay(plan.id)
+                  }}
+                >
+                  <DeleteOutline htmlColor={theme.palette.primary.main} />
+                </IconButton>
+              </AccordionSummary>
+              <AccordionDetails>
+                {plan.exercises.length > 0 ? (
+                  plan.exercises.map((exercise, index) => (
+                    <PlannedExercise
+                      key={index}
+                      exerciseDate={plan.date}
+                      exerciseName={exercise.exerciseName}
+                      repeats={exercise.repeats}
+                      sets={exercise.sets}
+                      exerciseId={exercise.id}
+                      dayId={plan.id}
+                    />
+                  ))
+                ) : (
+                  <Typography color='GrayText'>
+                    This section is empty please choose exercises
+                  </Typography>
+                )}
+              </AccordionDetails>
+            </Accordion>
+          ))}
+      </Grid>
+    </Grid>
   )
 }
