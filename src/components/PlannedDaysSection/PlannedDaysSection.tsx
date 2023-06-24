@@ -38,7 +38,7 @@ export const PlannedDaysSection = () => {
           bgcolor={theme.palette.primary.main}
           variant='body1'
         >
-          Selected Days
+          PLANNED DAYS
         </Typography>
       </Grid>
 
